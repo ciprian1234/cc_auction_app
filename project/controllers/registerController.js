@@ -1,7 +1,8 @@
-module.exports = function(app){
+module.exports = function(app, sql){
 
-	app.get('/register', function(req, resp){
-		resp.render("register");
+	app.post('/api/register', function(req, resp){
+		//
+		
 	});
 
 };

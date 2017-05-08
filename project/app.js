@@ -39,13 +39,21 @@ passport.use(new passportLocal.Strategy( function(username, password, done){
 }));
 
 
+
+
 //register controllers
 var homeController = require("./controllers/homeController");
 var loginController = require("./controllers/loginController");
 var registerController = require("./controllers/registerController");
-homeController(app);
-loginController(app);
-registerController(app);
+var itemsController = require("./controllers/itemsController");
+
+//connect to database
+var sql = require("./core/sqlcore");
+
+homeController(app, sql);
+loginController(app, sql);
+registerController(app, sql);
+itemsController(app, sql);
 
 /* Listener */
 var app_port = process.env.PORT || 3000;
