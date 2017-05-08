@@ -19,6 +19,7 @@ module.exports = function(app, sql){
 			if(error){
 				console.log(error);
 				resp.sendStatus(500);
+				return;
 			}
 			resp.send(results);
 		});
@@ -36,6 +37,7 @@ module.exports = function(app, sql){
 			if(error){
 				console.log(error);
 				resp.sendStatus(500);
+				return;
 			}
 			resp.send(results);
 		});
@@ -46,9 +48,17 @@ module.exports = function(app, sql){
 		
 	});
 
-	app.post('/api/items', jsonParser, function(req, resp){
-		console.log(req.body);
-		resp.sendStatus(200);
+	app.post('/api/items', jsonParser, function(req, resp)
+	{
+		var statement = 'INSERT INTO items SET ?';
+		var queryOutput = sql.connection.query(statement, req.body, function(error, results, fields){
+			if(error){
+				console.log("ERRO>>>>>><<<<");
+				resp.sendStatus(500);
+				return;
+			}
+			resp.send(fields);
+		});
 	});
 
 	app.delete('/api/items/:name', function(req, resp){
