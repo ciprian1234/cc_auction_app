@@ -1,4 +1,4 @@
-module.exports = function(app){
+module.exports = function(app, sql){
 
 	/*app.get('/', function(req, resp){
     	resp.redirect('home');
