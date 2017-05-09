@@ -1,4 +1,4 @@
-module.exports = function(app, sql){
+module.exports = function(app){
 	
 	app.post('/api/login', function(req, resp){
 		

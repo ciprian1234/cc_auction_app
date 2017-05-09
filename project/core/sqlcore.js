@@ -1,24 +1,11 @@
 var mysql = require('mysql');
 var config = require('./config');
-var connection = mysql.createConnection({
+var SQL_POOL = mysql.createPool({
+	connectionLimit : 3,
 	host: config.host,
 	user: config.user,
 	password: config.password,
 	database: config.database
 });
-
-var connectionError = false;
-
-connection.connect(function(error){
-	if(error){
-		connectionError = true;
-		console.log("SQL connection ERROR!");
-	}
-	else{
-		connectionError = false;
-		console.log("Connected to google SQL server:%s", config.host);
-	}
-});
-
-module.exports.connection = connection;
-module.exports.connectionError = connectionError;
+console.log("SQL core loaded, Created 3 SQL connections to %s",config.host);
+module.exports = SQL_POOL;
